@@ -1,0 +1,42 @@
+.header {
+    display: flex;
+    justify-content: center;
+    background-color: dodgerblue;
+}
+
+h1 {
+    color: floralwhite;
+}
+
+.container {
+    display: flex;
+    align-items: stretch;
+
+    margin: 0;
+    padding: 0;
+}
+
+aside {
+    flex: auto;
+}
+
+main {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#tdTemp {
+    flex: auto;
+    border: 1px black solid;
+    padding: 25px;
+    
+}
+
+#weektemp {
+    flex: 1;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: flex-start;
+
+}
