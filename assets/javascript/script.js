@@ -2,25 +2,14 @@
 var formEl = $("#form");
 var inputEl = $(".cityInput");
 
-var tempTdEl = $(".tdTemp");
-var tempWeekEl = $(".weekTemp");
+var tempTd = $(".temp");
+var windTd = $(".wind")
+var humidityTd = $(".humidity")
+var UVTd = $(".UV")
+var tempWeekEl = $("#weekTemp");
 
 
 // DATA
-
-var city_arr = [
-  Austin = {city: "Austin", lat: 30.267153, lon: -97.743061 }, 
-  Chicago = {city: "Chicago", lat: 41.878114, lon: -87.629798}, 
-  New_York = {city: "New York", lat: 40.712775, lon: -74.005973},  
-  Orlando = {city: "Orlando", lat: 28.538336, lon: -81.379234}, 
-  San_Francisco = {city: "San Francisco", lat: 37.774929, lon: -122.419418},  
-  Seattle = {city: "Seattle", lat: 47.606209, lon: -122.332069},  
-  Denver = {city: "Denver", lat: 39.739235, lon: -104.990250},  
-  Atlanta = {city: "Atlanta", lat: 33.753746, lon: -84.386330}, 
-  San_Diego = {city: "San Diego", lat: 	32.715736, lon: -117.161087}, 
-]
-
-var weatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}"
 
 
 // FUNCTIONS
@@ -44,13 +33,47 @@ $(function () {
 
 function getCity(event) {
   event.preventDefault();
-  var city = inputEl.val();
-  console.log("hello");
-  var cityIndex = city_arr.indexOf(city);
-  var lat = city_arr[cityIndex].lat;
-  var lon = city_array[cityIndex].lon;
-  console.log(lon);
+  var city = inputEl.val()
+  var geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=d82badb906f2ae8891cd46df1588137f`;
+  fetch(geoURL)
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+    var lat = data.lat;
+    var lon = data.lon;
+    console.log(lon);
+  });
+}
 
+function renderWeather(lat, lon) {
+  var weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=d82badb906f2ae8891cd46df1588137f`
+  fetch(weatherURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      tempTd.text(`Temp: ${(data.current.temp).toFixed(2)}°F`);
+      windTd.text(`Wind: ${data.current.wind_speed} MPH`);
+      humidityTd.text(`Humidity: ${data.current.humidity}%`);
+      var UVIndex = data.current.uvi;
+      UVTd.text(`UV Index: ${UVIndex}`);
+      if (UVIndex <= 2) {
+        UVTd.css("background-color", "green");
+      } else if (UVIndex <= 5) {
+        UVTd.css("background-color", "orange");
+      } else {
+        UVTd.css("background-color", "red");
+      }
+      var days = tempWeekEl.children().children();
+      
+      for (var i = 0; i < days.length; i++) {
+        days.eq(i).children().eq(2).text(`Temp:`)
+        days.eq(i).children().eq(3).text(`Wind:`)
+        days.eq(i).children().eq(4).text(`Humidity:`)
+      }
+    });
 }
 
 
@@ -59,3 +82,5 @@ function getCity(event) {
 formEl.on("submit", getCity);
 
 // INITIALIZATION
+
+renderWeather(30.267153, -97.743061);
