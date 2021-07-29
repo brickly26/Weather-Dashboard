@@ -1,16 +1,19 @@
 // DEPENDENCIES
 var formEl = $("#form");
-var inputEl = $(".cityInput");
+var inputEl = $("#cityInput");
 
 var tempTd = $(".temp");
 var windTd = $(".wind")
 var humidityTd = $(".humidity")
 var UVTd = $(".UV")
 var tempWeekEl = $("#weekTemp");
+var prevCity = $("prevCity");
 
 
 // DATA
 
+var lata;
+var long;
 
 // FUNCTIONS
 
@@ -26,30 +29,37 @@ $(function () {
     "Atlanta", 
     "San Diego"
   ];
-  $(".cityInput").autocomplete({
+  $("#cityInput").autocomplete({
     source: availableTags,
   });
 });
 
-function getCity(event) {
+function onSubmit(event) {
   event.preventDefault();
-  var city = inputEl.val()
-  var geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=d82badb906f2ae8891cd46df1588137f`;
-  fetch(geoURL)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-    var lat = data.lat;
-    var lon = data.lon;
-    console.log(lon);
-  });
+  var city = inputEl.val();
+  localStorage.setItem("City", city);
+  showPrevCity();
+  renderTdWeather(city);
+  render5DayWeather(city);
 }
 
-function renderWeather(lat, lon) {
-  var weatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=d82badb906f2ae8891cd46df1588137f`
-  fetch(weatherURL)
+function showPrevCity() {
+  prevCity.text(localStorage.getItem("City"))
+}
+
+function renderTdWeather(city) {
+  var geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=d82badb906f2ae8891cd46df1588137f`;
+  fetch(geoURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      lata = data[0].lat;
+      long = data[0].lon;
+    });
+  var todayURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lata}&lon=${long}&units=imperial&appid=d82badb906f2ae8891cd46df1588137f`;
+  fetch(todayURL)
     .then(function (response) {
       return response.json();
     })
@@ -66,12 +76,23 @@ function renderWeather(lat, lon) {
       } else {
         UVTd.css("background-color", "red");
       }
+    });
+}
+
+function render5DayWeather(city) {
+  var weekURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=d82badb906f2ae8891cd46df1588137f`
+  fetch(weekURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
       var days = tempWeekEl.children().children();
       
       for (var i = 0; i < days.length; i++) {
-        days.eq(i).children().eq(2).text(`Temp:`)
-        days.eq(i).children().eq(3).text(`Wind:`)
-        days.eq(i).children().eq(4).text(`Humidity:`)
+        days.eq(i).children().eq(2).text(`Temp: ${data.list[i].main.temp}°F`);
+        days.eq(i).children().eq(3).text(`Wind: ${data.list[i].wind.speed} MPH`);
+        days.eq(i).children().eq(4).text(`Humidity: ${data.list[i].main.humidity}%`);
       }
     });
 }
@@ -79,8 +100,13 @@ function renderWeather(lat, lon) {
 
 // USER INTERACTIONS
 
-formEl.on("submit", getCity);
+// For some reason when the form is submitted it refreshes the page even though i have event.preventDefault();
+// formEl.on("submit", onSubmit)
 
 // INITIALIZATION
 
-renderWeather(30.267153, -97.743061);
+// Use this block of code since event.preventDefault(); isnt working
+renderTdWeather("Austin")
+render5DayWeather("Austin")
+showPrevCity();
+
