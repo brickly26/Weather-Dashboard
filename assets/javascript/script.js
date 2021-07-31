@@ -1,5 +1,6 @@
 // DEPENDENCIES
 var formEl = $("#form");
+//var formEl = document.querySelector("#form");
 var inputEl = $("#cityInput");
 
 var tempTd = $(".temp");
@@ -8,12 +9,16 @@ var humidityTd = $(".humidity")
 var UVTd = $(".UV")
 var tempWeekEl = $("#weekTemp");
 var prevCity = $("prevCity");
+var asideEl = $(".aside");
+var btnListEl = $(".btnList");
+var cityEl = $(".cityDate");
 
-
+console.log(asideEl.children().length);
 // DATA
 
 var lata;
 var long;
+var historyArr = [];
 
 // FUNCTIONS
 
@@ -37,10 +42,30 @@ $(function () {
 function onSubmit(event) {
   event.preventDefault();
   var city = inputEl.val();
-  localStorage.setItem("City", city);
-  showPrevCity();
+  saveSearch(city);
+  renderHistory();
   renderTdWeather(city);
   render5DayWeather(city);
+}
+
+function saveSearch(city) {
+  console.log(historyArr);
+  historyArr.push(city);
+  var strHistory = JSON.stringify(historyArr);
+  localStorage.setItem("History", strHistory);
+}
+
+function renderHistory() {
+  var tempHistory = JSON.parse(localStorage.getItem("History"));
+  btnListEl.remove();
+  btnListEl = $("<div>");
+  for (var i = 0; i < tempHistory.length; i++) {
+    var historyBtn = $("<button>");
+    historyBtn.text(tempHistory[i]);
+    historyBtn.attr("data-city", tempHistory[i])
+    btnListEl.append(historyBtn);
+  }
+  asideEl.append(btnListEl);
 }
 
 function showPrevCity() {
@@ -64,6 +89,8 @@ function renderTdWeather(city) {
       return response.json();
     })
     .then(function (data) {
+      var today = moment();
+      cityEl.text(`${city}: ${today.format("MMM Do, YYYY")}`);
       tempTd.text(`Temp: ${(data.current.temp).toFixed(2)}°F`);
       windTd.text(`Wind: ${data.current.wind_speed} MPH`);
       humidityTd.text(`Humidity: ${data.current.humidity}%`);
@@ -101,12 +128,16 @@ function render5DayWeather(city) {
 // USER INTERACTIONS
 
 // For some reason when the form is submitted it refreshes the page even though i have event.preventDefault();
-// formEl.on("submit", onSubmit)
+formEl.on("submit", onSubmit)
+
+historyBtn.on("click", function(event) {
+  console.log(event.target);
+})
 
 // INITIALIZATION
 
 // Use this block of code since event.preventDefault(); isnt working
-renderTdWeather("Austin")
-render5DayWeather("Austin")
-showPrevCity();
+// renderTdWeather("Austin")
+// render5DayWeather("Austin")
+// showPrevCity();
 
