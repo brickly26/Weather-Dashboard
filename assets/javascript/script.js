@@ -61,6 +61,7 @@ function renderHistory() {
   btnListEl = $("<div>");
   for (var i = 0; i < tempHistory.length; i++) {
     var historyBtn = $("<button>");
+    historyBtn.attr("type", "button");
     historyBtn.text(tempHistory[i]);
     historyBtn.attr("data-city", tempHistory[i])
     btnListEl.append(historyBtn);
@@ -79,7 +80,6 @@ function renderTdWeather(city) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
       lata = data[0].lat;
       long = data[0].lon;
     });
@@ -113,10 +113,12 @@ function render5DayWeather(city) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      var today = moment();
       var days = tempWeekEl.children().children();
       
       for (var i = 0; i < days.length; i++) {
+        days.eq(i).children().eq(0).text(`Date: ${today.add(i+1, "days").format("MMM Do, YYYY")}`);
+        days.eq(i).children().eq(1).attr("src", `http://openweathermap.org/img/wn/${data.list[i].weather.icon}@2x.png`)
         days.eq(i).children().eq(2).text(`Temp: ${data.list[i].main.temp}°F`);
         days.eq(i).children().eq(3).text(`Wind: ${data.list[i].wind.speed} MPH`);
         days.eq(i).children().eq(4).text(`Humidity: ${data.list[i].main.humidity}%`);
@@ -130,9 +132,9 @@ function render5DayWeather(city) {
 // For some reason when the form is submitted it refreshes the page even though i have event.preventDefault();
 formEl.on("submit", onSubmit)
 
-historyBtn.on("click", function(event) {
-  console.log(event.target);
-})
+historyBtn.click(function(event) {
+  console.log("hello");
+});
 
 // INITIALIZATION
 
