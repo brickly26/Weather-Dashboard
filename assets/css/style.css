@@ -1,41 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .header {
     display: flex;
     justify-content: center;
-    background-color: dodgerblue;
+    align-items: center;
+    height: 125px;
+    background-color:#5589a7;
+    border-bottom: midnightblue 5px solid;
 }
 
 h1 {
     color: floralwhite;
 }
 
-.container {
+#form {
     display: flex;
-    
-
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    border-bottom: 2px midnightblue solid;
 }
 
-aside {
-    flex: auto;
+#search-text {
+    font-size: 25px;
+    width: 80%;
+    text-align: center;
 }
 
-main {
-    flex: auto;
+.form-group {
+    padding: 5px, 0px, 5px, 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.btnList {
     display: flex;
     flex-direction: column;
 }
 
-#tdTemp {
-    flex: auto;
-    border: 1px black solid;
-    padding: 25px;
-    
+.btn {
+    background-color: goldenrod;
 }
 
-.weektemp {
-    flex: 1;
-    display: flex;
-    justify-content:space-between;
+.button {
+    width: 100%;
+    font-size: 20px;
+    margin-top: 13px;
+    background-color: goldenrod;
+}
 
+.container {
+    display: flex;
+    border-bottom: 5px solid midnightblue;
+}
+
+aside {
+    background-color:#55a798;
+    width: 275px;
+    border-right: 2px midnightblue solid;
+}
+
+
+main {
+    width: 85%;
+    border-left: 3px midnightblue solid;
+}
+
+#td-container {
+    height: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    margin: 15px;
+}
+
+#tdTemp {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 600px;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 7px 8px 1px 0px rgb(0 0 0 / 20%);
+    background-image: linear-gradient(to bottom right, #55a798, #5589a7);
+    padding: 5px;
+}
+
+#weekTemp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: midnightblue 5px solid;
+}
+
+#card-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 7px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 200px;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 7px 8px 1px 0px rgb(0 0 0 / 20%);
+    background-image: linear-gradient(to bottom right, #55a798, #5589a7);
+    padding: 5px;
+    margin-top: 7px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+.icon {
+    width: 50%;
 }

@@ -3,10 +3,10 @@ var formEl = $("#form");
 //var formEl = document.querySelector("#form");
 var inputEl = $("#cityInput");
 
-var tempTd = $(".temp");
-var windTd = $(".wind")
-var humidityTd = $(".humidity")
-var UVTd = $(".UV")
+var tempTd = $(".temp").children().eq(1);
+var windTd = $(".wind").children().eq(1);
+var humidityTd = $(".humidity").children().eq(1);
+var UVTd = $(".UV").children().eq(1);
 var tempWeekEl = $("#weekTemp");
 var prevCity = $("prevCity");
 var asideEl = $(".aside");
@@ -40,12 +40,14 @@ $(function () {
 
 function onSubmit(event) {
   event.preventDefault();
-  var city = inputEl.val();
-  inputEl.val("");
-  saveSearch(city);
-  renderHistory();
-  renderTdWeather(city);
-  render5DayWeather(city);
+  if(inputEl.val() === "") {
+    var city = inputEl.val();
+    inputEl.val("");
+    saveSearch(city);
+    renderHistory();
+    renderTdWeather(city);
+    render5DayWeather(city);
+  }
 }
 
 function saveSearch(city) {
@@ -65,12 +67,14 @@ function saveSearch(city) {
 function renderHistory() {
   var tempHistory = JSON.parse(localStorage.getItem("History"));
   btnContainerEl.empty();
-  for (var i = 0; i < tempHistory.length; i++) {
-    var historyBtn = $("<button>");
-    historyBtn.attr("class", "button");
-    historyBtn.text(tempHistory[i]);
-    historyBtn.attr("data-city", tempHistory[i])
-    btnContainerEl.append(historyBtn);
+  if (tempHistory) {
+    for (var i = 0; i < tempHistory.length; i++) {
+      var historyBtn = $("<button>");
+      historyBtn.attr("class", "button");
+      historyBtn.text(tempHistory[i]);
+      historyBtn.attr("data-city", tempHistory[i])
+      btnContainerEl.append(historyBtn);
+    }
   }
 }
 
@@ -95,28 +99,28 @@ async function GeoCoder(city) {
     });
 }
 
-async function OneCall(city, lata,long) {
+function OneCall(city, lata,long) {
   var todayURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lata}&lon=${long}&units=imperial&appid=d82badb906f2ae8891cd46df1588137f`;
-  await fetch(todayURL)
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          var today = moment();
-          cityEl.text(`${city}: ${today.format("MMM Do, YYYY")}`);
-          tempTd.text(`Temp: ${(data.current.temp).toFixed(2)}°F`);
-          windTd.text(`Wind: ${data.current.wind_speed} MPH`);
-          humidityTd.text(`Humidity: ${data.current.humidity}%`);
-          var UVIndex = data.current.uvi;
-          UVTd.text(`UV Index: ${UVIndex}`);
-          if (UVIndex <= 2) {
-            UVTd.css("background-color", "green");
-          } else if (UVIndex <= 5) {
-            UVTd.css("background-color", "orange");
-          } else {
-            UVTd.css("background-color", "red");
-          }
-        });
+    fetch(todayURL)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        var today = moment();
+        cityEl.text(`${city}: ${today.format("MMM Do, YYYY")}`);
+        tempTd.text(`${(data.current.temp).toFixed(2)}°F`);
+        windTd.text(`${data.current.wind_speed} MPH`);
+        humidityTd.text(`${data.current.humidity}%`);
+        var UVIndex = data.current.uvi;
+        UVTd.text(`${UVIndex}`);
+        if (UVIndex <= 2) {
+          UVTd.css("color", "green");
+        } else if (UVIndex <= 5) {
+          UVTd.css("color", "orange");
+        } else {
+          UVTd.css("color", "red");
+        }
+      });
 }
 
 function render5DayWeather(city) {
@@ -127,14 +131,13 @@ function render5DayWeather(city) {
     })
     .then(function (data) {
       var today = moment();
-      var days = tempWeekEl.children().children();
-      
+      var days = tempWeekEl.children().children().children();
       for (var i = 0; i < days.length; i++) {
-        days.eq(i).children().eq(0).text(`Date: ${today.add(1, "days").format("MMM Do, YYYY")}`);
+        days.eq(i).children().eq(0).text(`${today.add(1, "days").format("MMM Do, YYYY")}`);
         days.eq(i).children().eq(1).attr("src", `http://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`)
-        days.eq(i).children().eq(2).text(`Temp: ${data.list[i].main.temp}°F`);
-        days.eq(i).children().eq(3).text(`Wind: ${data.list[i].wind.speed} MPH`);
-        days.eq(i).children().eq(4).text(`Humidity: ${data.list[i].main.humidity}%`);
+        days.eq(i).children().eq(2).children().eq(0).text(`Temp: ${data.list[i].main.temp}°F`);
+        days.eq(i).children().eq(2).children().eq(1).text(`Wind: ${data.list[i].wind.speed} MPH`);
+        days.eq(i).children().eq(2).children().eq(2).text(`Humidity: ${data.list[i].main.humidity}%`);
       }
     });
 }

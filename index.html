@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-    crossorigin="anonymous"
-    />
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
@@ -28,71 +22,84 @@
     </div>
     <div class="container">
         <aside class="aside">
-            <div>
-                <form id="form">
-                    <div class="form-group">
-                        <h2>Search for a City:</h2>
-                        <input type="text" id="cityInput">
-                    </div>
+            <form id="form">
+                <h2 id="search-text">Search for a City</h2>
+                <div class="form-group">
+                    <input type="text" id="cityInput">
                     <button type="submit" class="btn btn-primary">Search</button>
-                  </form>
-                  <h2 id="prevCity"></h2>
-            </div>
+                </div>
+            </form>
             <div class="btnList"></div>
         </aside>
         <main>
-            <div id="tdTemp">
-                <h2 class="cityDate"></h2>
-                <p class="temp"></p>
-                <p class="wind"></p>
-                <p class="humidity"></p>
-                <p class="UV"></p>
+            <div id="td-container">
+                <div id="tdTemp">
+                    <h2 class="cityDate"></h2>
+                    <div>
+                        <p class="temp"><span>Temperature: </span><span></span></p>
+                        <p class="wind"><span>Wind Speeds: </span><span></span></p>
+                        <p class="humidity"><span>Humidity: </span><span></span></p>
+                        <p class="UV"><span>UV Index: </span><span></span></p>
+                    </div>
+                </div>
             </div>
             <div id="weekTemp">
                 <h2>5 Day Forecast</h2>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="date1"></h5>
-                        <img alt="">
-                        <p class="temp1"></p>
-                        <p class="wind1"></p>
-                        <p class="humidity1"></p>
+                <div id="card-container">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="date1"></h3>
+                            <img class="icon" alt="">
+                            <div>
+                                <p class="temp1"></p>
+                                <p class="wind1"></p>
+                                <p class="humidity1"></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="date1"></h5>
-                        <img alt="">
-                        <p class="temp1"></p>
-                        <p class="wind1"></p>
-                        <p class="humidity1"></p>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="date1"></h3>
+                            <img class="icon" alt="">
+                            <div>
+                                <p class="temp1"></p>
+                                <p class="wind1"></p>
+                                <p class="humidity1"></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="date1"></h5>
-                        <img alt="">
-                        <p class="temp1"></p>
-                        <p class="wind1"></p>
-                        <p class="humidity1"></p>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="date1"></h3>
+                            <img class="icon" alt="">
+                            <div>
+                                <p class="temp1"></p>
+                                <p class="wind1"></p>
+                                <p class="humidity1"></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="date1"></h5>
-                        <img alt="">
-                        <p class="temp1"></p>
-                        <p class="wind1"></p>
-                        <p class="humidity1"></p>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="date1"></h3>
+                            <img class="icon" alt="">
+                            <div>
+                                <p class="temp1"></p>
+                                <p class="wind1"></p>
+                                <p class="humidity1"></p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="date1"></h5>
-                        <img alt="">
-                        <p class="temp1"></p>
-                        <p class="wind1"></p>
-                        <p class="humidity1"></p>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="date1"></h3>
+                            <img class="icon" alt="">
+                            <div>
+                                <p class="temp1"></p>
+                                <p class="wind1"></p>
+                                <p class="humidity1"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
