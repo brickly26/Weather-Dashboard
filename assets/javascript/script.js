@@ -13,9 +13,7 @@ var asideEl = $(".aside");
 var btnContainerEl = $(".btnList");
 var cityEl = $(".cityDate");
 
-console.log(asideEl.children().length);
 // DATA
-
 
 var historyArr = [];
 
@@ -88,7 +86,7 @@ function renderTdWeather(city) {
 }
 
 async function GeoCoder(city) {
-  var geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=d82badb906f2ae8891cd46df1588137f`;
+  var geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=d82badb906f2ae8891cd46df1588137f`;
   await fetch(geoURL)
     .then(function (response) {
       return response.json();
