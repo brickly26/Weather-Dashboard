@@ -46,5 +46,7 @@ THEN I am again presented with current and future conditions for that city
 
 [https://brickly26.github.io/Weather-Dashboard/](https://brickly26.github.io/Weather-Dashboard/)
 
+## Final Product
 
+![Image of my Weather dashboard](./assets/images/Weather-Dash.png)
 
