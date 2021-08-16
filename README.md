@@ -17,10 +17,6 @@ Name: Burak Aksu
 
 Email: Sabburak26@gmail.com
 
-## Assignment Details
-
-
-
 ## User Story
 
 ```
