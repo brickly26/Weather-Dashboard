@@ -82,18 +82,18 @@ function showPrevCity() {
 }
 
 function renderTdWeather(city) {
-  GeoCoder(city);
+  GeoLocator(city);
 }
 
-async function GeoCoder(city) {
-  var geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=d82badb906f2ae8891cd46df1588137f`;
+async function GeoLocator(city) {
+  var geoURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=aa772c06902f60c4e5f5e833c0ce31f4`;
   await fetch(geoURL)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      var lata = data[0].lat;
-      var long = data[0].lon;
+      var lata = data.coord.lat;
+      var long = data.coord.lon;
       OneCall(city, lata, long);
     });
 }
