@@ -44,6 +44,7 @@ THEN I am again presented with current and future conditions for that city
 
 ## Deployed Version
 
-https://brickly26.github.io/Weather-Dashboard/
+[https://brickly26.github.io/Weather-Dashboard/](https://brickly26.github.io/Weather-Dashboard/)
+
 
 
