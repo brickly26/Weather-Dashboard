@@ -86,7 +86,7 @@ function renderTdWeather(city) {
 }
 
 async function GeoLocator(city) {
-  var geoURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=aa772c06902f60c4e5f5e833c0ce31f4`;
+  var geoURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=aa772c06902f60c4e5f5e833c0ce31f4`;
   await fetch(geoURL)
     .then(function (response) {
       return response.json();
