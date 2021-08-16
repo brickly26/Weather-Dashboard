@@ -40,7 +40,8 @@ $(function () {
 
 function onSubmit(event) {
   event.preventDefault();
-  if(inputEl.val() === "") {
+  console.log(inputEl);
+  if(inputEl.val() !== "") {
     var city = inputEl.val();
     inputEl.val("");
     saveSearch(city);
@@ -145,7 +146,6 @@ function render5DayWeather(city) {
 
 // USER INTERACTIONS
 
-// For some reason when the form is submitted it refreshes the page even though i have event.preventDefault();
 formEl.on("submit", onSubmit);
 
 btnContainerEl.on("click", ".button", function(event) {

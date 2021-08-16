@@ -1,8 +1,25 @@
 # 06 Server-Side APIs: Weather Dashboard
 
+## Table of Content
+
+- Homework Description
+- Author Info
+- User Story
+- Acceptance Criteria
+
+## Homework Description
+
+In this assignment we focused on applying what we learned about third party rest apis. The end goal was to use Open Weather Api in order to show our users the current climate in the city of their choosing. This was done by send the user perfered city to an asyncronous function with an await promise, so that the information recieved from the first api call and be used in the url of the next api call.
+
+## Author Info
+
+Name: Burak Aksu
+
+Email: Sabburak26@gmail.com
+
 ## Assignment Details
 
-In this assignment we focused on applying what we learned about third party rest apis. The end goal was to use Open Weather Api in order to show our users the current climate in the city of their choosing, by allowing them to search for
+
 
 ## User Story
 
