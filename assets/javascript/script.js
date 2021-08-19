@@ -133,7 +133,7 @@ function render5DayWeather(city) {
       var days = tempWeekEl.children().children().children();
       for (var i = 0; i < days.length; i++) {
         days.eq(i).children().eq(0).text(`${today.add(1, "days").format("MMM Do, YYYY")}`);
-        days.eq(i).children().eq(1).attr("src", `http://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`)
+        days.eq(i).children().eq(1).attr("src", `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`)
         days.eq(i).children().eq(2).children().eq(0).text(`Temp: ${data.list[i].main.temp}°F`);
         days.eq(i).children().eq(2).children().eq(1).text(`Wind: ${data.list[i].wind.speed} MPH`);
         days.eq(i).children().eq(2).children().eq(2).text(`Humidity: ${data.list[i].main.humidity}%`);
